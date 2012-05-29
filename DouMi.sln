@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DouMi", "DouMi\DouMi.csproj", "{3AF54EBB-CD2C-45CC-A393-D8FE5D99371D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHelper", "WebHelper\WebHelper.csproj", "{FB620061-2B0B-4C69-888E-E8428C58CCB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookInfo", "BookInfo\BookInfo.csproj", "{2153CA60-DBBE-4132-99B7-28BA6209C50D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AF54EBB-CD2C-45CC-A393-D8FE5D99371D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AF54EBB-CD2C-45CC-A393-D8FE5D99371D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AF54EBB-CD2C-45CC-A393-D8FE5D99371D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3AF54EBB-CD2C-45CC-A393-D8FE5D99371D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AF54EBB-CD2C-45CC-A393-D8FE5D99371D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AF54EBB-CD2C-45CC-A393-D8FE5D99371D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{FB620061-2B0B-4C69-888E-E8428C58CCB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB620061-2B0B-4C69-888E-E8428C58CCB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB620061-2B0B-4C69-888E-E8428C58CCB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB620061-2B0B-4C69-888E-E8428C58CCB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2153CA60-DBBE-4132-99B7-28BA6209C50D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2153CA60-DBBE-4132-99B7-28BA6209C50D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2153CA60-DBBE-4132-99B7-28BA6209C50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2153CA60-DBBE-4132-99B7-28BA6209C50D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

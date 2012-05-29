@@ -1,0 +1,49 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="DouMi.BookSearchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,10">
+            <TextBlock x:Name="ApplicationTitle" Text="豆米" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="搜索" Margin="9,-7,0,0" FontSize="70"/>
+        </StackPanel>
+
+        <!--ContentPanel - 在此处放置其他内容-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="txtSearchKey" Grid.Row="0" Height="75" Margin="0,15,0,0" InputScope="Search" KeyUp="txtSearchKey_KeyUp" GotFocus="txtSearchKey_GotFocus" VerticalAlignment="Top" />
+            <TextBlock x:Name="Tips" Grid.Row="1" Text="提示：输入书名、作者、ISBN等" Margin="12,0,0,0" Style="{StaticResource PhoneTextSubtleStyle}" TextWrapping="Wrap" />
+        </Grid>
+    </Grid>
+ 
+    <!--演示 ApplicationBar 用法的示例代码-->
+    <!--图标属性中的“生成操作”修改为“内容”-->
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
+            <shell:ApplicationBarIconButton Click="BeginSearch_Click" IconUri="/Images/appbar_search.png" Text="开始搜索"/>
+            <shell:ApplicationBarIconButton Click="BarcodeScan_Click" IconUri="/Images/appbar_camera.png" Text="扫描条码"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>
