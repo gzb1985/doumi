@@ -1,7 +1,9 @@
-doumi
+﻿doumi
 =====
 
 Doumi, A douban book search app on wp7. 
+
+License: MIT (see LICENSE)
 
 豆米，是一款基于豆瓣api的windows phone 7书籍搜索工具，基本功能有：
 
