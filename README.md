@@ -1,4 +1,4 @@
 doumi
 =====
 
-DouMi, A douban book search on wp7.
+DouMi, A douban book search app on wp7.
