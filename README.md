@@ -3,6 +3,12 @@ doumi
 
 Doumi, A douban book search app on wp7. 
 
-基于豆瓣api的书籍搜索工具，特色功能是书籍条码扫描。目前仅支持中文。
+豆米，是一款基于豆瓣api的windows phone 7书籍搜索工具，基本功能有：
+
+1，数据关键字搜索
+2，书籍条码扫描搜索
+3，查阅书籍详细信息
+4，查阅书籍评论
+5，查看书籍比价
 
 Windows Marketplace链接: http://www.windowsphone.com/en-US/apps/aa608efc-2368-446d-8aa9-3924ea0a64f3
