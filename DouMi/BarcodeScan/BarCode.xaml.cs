@@ -19,6 +19,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
 using System.IO;
+using WebHelpers;
 
 namespace DouMi
 {
@@ -123,7 +124,15 @@ namespace DouMi
                     BarCodeRectSuccess();
                     Dispatcher.BeginInvoke(() =>
                     {
-                        NavigationService.Navigate(new Uri("/BookDetailPanoramaPage.xaml?isbn=" + result.Text, UriKind.Relative));
+                        if (WebHelper.Instance.InternetIsAvailableNotify())
+                        {
+                            NavigationService.Navigate(new Uri("/BookDetailPanoramaPage.xaml?isbn=" + result.Text, UriKind.Relative));
+                        }
+                        else
+                        {
+                            if (NavigationService.CanGoBack)
+                                NavigationService.GoBack();
+                        }
                     });
                 }
                 else 

@@ -163,9 +163,9 @@
       <Project>{2153CA60-DBBE-4132-99B7-28BA6209C50D}</Project>
       <Name>BookInfo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebHelper\WebHelper.csproj">
+    <ProjectReference Include="..\WebHelper\WebHelpers.csproj">
       <Project>{FB620061-2B0B-4C69-888E-E8428C58CCB7}</Project>
-      <Name>WebHelper</Name>
+      <Name>WebHelpers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

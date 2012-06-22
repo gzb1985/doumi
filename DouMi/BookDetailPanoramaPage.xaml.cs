@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Windows.Navigation;
-using WikiDev.Core;
+using WebHelpers;
 using BookInfo;
 using System.Text.RegularExpressions;
 using System.Windows.Controls.Primitives;
@@ -25,8 +25,9 @@ namespace DouMi
 
         private ScrollViewer sv = null;
         private bool alreadyHookedScrollEvents = false;
-        private bool isLoadingMoreReviews = false;
-        private bool needLoadingMoreReviews = false;
+        private bool isLoadingReviews = false;
+        private bool needLoadMoreReviews = false;
+        private bool isNoMoreReviews = false;
 
         private string Isbn = "";
         
@@ -69,15 +70,68 @@ namespace DouMi
                 return;
 
             string isbn = "";
+            
             if (NavigationContext.QueryString.TryGetValue("isbn", out isbn))
             {
-                Isbn = isbn;
-                Dispatcher.BeginInvoke(() =>
+                if (isbn != "")
                 {
+                    Isbn = isbn;
                     GetBookInfo(isbn);
-                });
+                }
+                else
+                {
+                    InvalidBook();
+                }
+            }
+
+            string title = "";
+            NavigationContext.QueryString.TryGetValue("title", out title);
+            if (title != null && title != "")
+            {
+                DisplayBookTitle(title);
             }
             base.OnNavigatedTo(e);
+        }
+
+        private void InvalidBook()
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                Book nullBook = new Book();
+                bookDetailViewModel.UpdateViewModel(nullBook);//null book
+                this.DataContext = bookDetailViewModel;
+                noBasicInfo.Visibility = System.Windows.Visibility.Visible;
+                noSummaryInfo.Visibility = System.Windows.Visibility.Visible;
+                noReview.Visibility = System.Windows.Visibility.Visible;
+                noBuyinfo.Visibility = System.Windows.Visibility.Visible;
+            });
+        }
+
+        private void DisplayBookTitle(string title)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                bookTitle.Text = title;
+                bookTitle.Visibility = System.Windows.Visibility.Visible;
+            });
+        }
+
+        private void HideIntroTitles()
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                authorIntro.Opacity = 0;
+                contentIntro.Opacity = 0;
+            });
+        }
+
+        private void DisplayIntroTitles()
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                authorIntro.Opacity = 1;
+                contentIntro.Opacity = 1;
+            });
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -95,16 +149,19 @@ namespace DouMi
         {
             string bookUrl = BookUrl.Instance.ConstructBookUrl(isbn);
             basicInfoProgressBar.IsIndeterminate = true;
+            HideIntroTitles();
             WebHelper.Instance.DownloadBookInfo(bookUrl,
                     (book) =>
                     {
+                        DisplayBookTitle(book.Title);
                         Dispatcher.BeginInvoke(() =>
                         {
                             bookDetailViewModel.UpdateViewModel(book);
-                            GetBookReviews(isbn);
                             this.DataContext = bookDetailViewModel;
                             if (bookDetailViewModel.Summary == "" && bookDetailViewModel.AuthorIntro == "")
                                 noSummaryInfo.Visibility = System.Windows.Visibility.Visible;
+                            DisplayIntroTitles();
+                            GetBookReviews(isbn);
                         });
                         basicInfoProgressBar.IsIndeterminate = false;
                     },
@@ -112,9 +169,8 @@ namespace DouMi
                     {
                         Dispatcher.BeginInvoke(() =>
                         {
-                            noSummaryInfo.Visibility = System.Windows.Visibility.Visible;
-                            noReview.Visibility = System.Windows.Visibility.Visible;
-                            noBuyinfo.Visibility = System.Windows.Visibility.Visible;
+                            InvalidBook();
+                            DisplayIntroTitles();
                         });
                         basicInfoProgressBar.IsIndeterminate = false;
                     },
@@ -127,6 +183,7 @@ namespace DouMi
         private void GetBookReviews(string isbn)
         {
             string bookReviewsUrl = BookUrl.Instance.ConstructBookReviewsUrl(isbn, 1, 5);
+            isLoadingReviews = true;
             reviewProgressBar.IsIndeterminate = true;
             WebHelper.Instance.DownloadBookReviews(bookReviewsUrl,
                     (rws) =>
@@ -138,14 +195,20 @@ namespace DouMi
                             if (bookDetailViewModel.Reviews.Count == 0)
                                 noReview.Visibility = System.Windows.Visibility.Visible;
                         });
+                        isLoadingReviews = false;
                         reviewProgressBar.IsIndeterminate = false;
                     },
                     () =>
                     {
                         Dispatcher.BeginInvoke(() =>
                         {
+                            if (bookDetailViewModel.Reviews.Count == 0)
+                            {
+                                noReview.Visibility = System.Windows.Visibility.Visible;
+                            }
                             GetBookBuyInfo(isbn, bookDetailViewModel.Weblink);
                         });
+                        isLoadingReviews = false;
                         reviewProgressBar.IsIndeterminate = false;
                     },
                     (percentage) =>
@@ -157,20 +220,36 @@ namespace DouMi
         private void GetMoreBookReviews(string url)
         {
             reviewProgressBar.IsIndeterminate = true;
+            isLoadingReviews = true;
             WebHelper.Instance.DownloadBookReviews(url,
                     (rws) =>
                     {
                         Dispatcher.BeginInvoke(() =>
                         {
-                            bookDetailViewModel.AppendReviews(rws);
+                            if (rws.Count == 0)
+                            {
+                                isNoMoreReviews = true;
+                                if (bookDetailViewModel.Reviews.Count == 0)
+                                {
+                                    noReview.Visibility = System.Windows.Visibility.Visible;
+                                }
+                            }
+                            else
+                            {
+                                bookDetailViewModel.AppendReviews(rws);
+                            }
+                            reviewProgressBar.IsIndeterminate = false;
                         });
-                        reviewProgressBar.IsIndeterminate = false;
-                        isLoadingMoreReviews = false;
+                        
+                        isLoadingReviews = false;
                     },
                     () =>
                     {
-                        reviewProgressBar.IsIndeterminate = false;
-                        isLoadingMoreReviews = false;
+                        Dispatcher.BeginInvoke(() =>
+                        {
+                            reviewProgressBar.IsIndeterminate = false;
+                        });
+                        isLoadingReviews = false;
                     },
                     (percentage) =>
                     {
@@ -232,14 +311,18 @@ namespace DouMi
             }
         }
 
+        private bool NeedLoadMoreReviews()
+        {
+            return needLoadMoreReviews && !isLoadingReviews && !isNoMoreReviews;
+        }
+
         private void ReviewsListBox_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
-            if (needLoadingMoreReviews)
+            if (NeedLoadMoreReviews())
             {
-                needLoadingMoreReviews = false;
+                needLoadMoreReviews = false;
                 Dispatcher.BeginInvoke(() =>
                 {
-                    isLoadingMoreReviews = true;
                     int start = bookDetailViewModel.Reviews.Count + 1;
                     int results = 5;
                     string bookReviewsUrl = BookUrl.Instance.ConstructBookReviewsUrl(Isbn, start, results);
@@ -250,7 +333,7 @@ namespace DouMi
 
         private void ReviewsListBox_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
-            needLoadingMoreReviews = false;
+            needLoadMoreReviews = false;
         }
 
         private UIElement FindElementRecursive(FrameworkElement parent, Type targetType)
@@ -291,10 +374,7 @@ namespace DouMi
         {
             if (e.NewState.Name == "CompressionBottom")
             {
-                if (!isLoadingMoreReviews && Isbn != "")
-                {
-                    needLoadingMoreReviews = true;
-                }
+                needLoadMoreReviews = true;
             }
             if (e.NewState.Name == "NoVerticalCompression" || e.NewState.Name == "CompressionTop")
             {

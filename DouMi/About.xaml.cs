@@ -24,7 +24,7 @@ namespace DouMi
         private void Email_Click(object sender, EventArgs e)
         {
             EmailComposeTask email = new EmailComposeTask();
-            email.Subject = "Feedback";
+            email.Subject = "豆米 v1.1.0.0 Feedback";
             email.To = "gzb1985@gmail.com";
             email.Show();
         }

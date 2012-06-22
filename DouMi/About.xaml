@@ -48,7 +48,7 @@
                     <TextBlock Grid.Column="1" Text="豆米" FontSize="90" Margin="0,0,0,0" Foreground="LimeGreen" HorizontalAlignment="Left" VerticalAlignment="Center" />
                 </Grid>
                 <TextBlock Grid.Row="1" Text="豆瓣书籍搜索" Style="{StaticResource PhoneTextLargeStyle}" Margin="12,0,12,0" Foreground="LimeGreen" HorizontalAlignment="Center" />
-                <TextBlock Grid.Row="2" Text="v  1.0.0.0" Margin="12,60,12,0" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <TextBlock Grid.Row="2" Text="v  1.1.0.0" Margin="12,60,12,0" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <HyperlinkButton Content="gzb1985@gmail.com" Grid.Row="3" Margin="12,20,12,0" Click="Email_Click"/>
                 <HyperlinkButton Content="风中散发" Grid.Row="4" Margin="12,20,12,0" Click="Website_Click"/>
             </Grid>

@@ -39,6 +39,7 @@ namespace BookInfo
             Translator = new List<string>();
             Rating = new BookRating();
             Title = "";
+            Subtitle = "";
             AuthorIntro = "";
             Imageurl = "";
             Summary = "";
@@ -52,6 +53,7 @@ namespace BookInfo
         }
 
         public string Title { get; set; }
+        public string Subtitle { get; set; }
         public List<string> Author { get; set; }
         public List<string> Translator { get; set; }
         public string AuthorIntro { get; set; }

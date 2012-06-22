@@ -96,6 +96,14 @@ namespace DouMi
             }
         }
 
+        public string Subtitle
+        {
+            get
+            {
+                return TheBook.Subtitle;
+            }
+        }
+
         public string Author
         {
             get
@@ -220,6 +228,11 @@ namespace DouMi
         public string BasicInfoTitle
         {
             get { return "书名: " + Title; }
+        }
+
+        public string BasicInfoSubtitle
+        {
+            get { return "副标题: " + Subtitle; }
         }
 
         public string BasicInfoAuthor

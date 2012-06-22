@@ -17,7 +17,9 @@ namespace DouMi.Converters
             CultureInfo culture)
         {
             string info = (string)value;
-            info.Trim();
+            if (info == null)
+                return Visibility.Collapsed;
+
             return (info != "") ? Visibility.Visible : Visibility.Collapsed;
         }
 

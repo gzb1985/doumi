@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using WikiDev.Core;
+using WebHelpers;
 using BookInfo;
 using com.google.zxing;
 using System.Windows.Navigation;
@@ -27,7 +27,7 @@ namespace DouMi
             // 将 listbox 控件的数据上下文设置为示例数据
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-            System.Threading.Thread.Sleep(1500);
+            System.Threading.Thread.Sleep(500);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

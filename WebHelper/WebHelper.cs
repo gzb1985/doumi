@@ -15,7 +15,7 @@ using System.Net.NetworkInformation;
 using BookInfo;
 using System.Windows.Resources;
 
-namespace WikiDev.Core
+namespace WebHelpers
 {
     public class WebHelper
     {
@@ -39,9 +39,6 @@ namespace WikiDev.Core
 
         public void DownloadString(string url, Action<string> onDownloadCompleted, Action onConnectionFailed, Action<int> onProgressChanged)
         {
-            if (!InternetIsAvailable())
-                onConnectionFailed();
-
             try
             {
                 var webClient = new WebClient();
@@ -210,6 +207,9 @@ namespace WikiDev.Core
                             break;
                         case "translator":
                             book.Translator.Add(element.Value);
+                            break;
+                        case "subtitle":
+                            book.Subtitle = element.Value;
                             break;
                     }
                 }
@@ -470,7 +470,16 @@ namespace WikiDev.Core
         {
             if (!NetworkInterface.GetIsNetworkAvailable())
             {
-                MessageBox.Show(@"You currently have no network connection.", "错误", MessageBoxButton.OK);
+                return false;
+            }
+            return true;
+        }
+
+        public bool InternetIsAvailableNotify()
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {
+                MessageBox.Show(@"请检查网络连接。", "错误", MessageBoxButton.OK);
                 return false;
             }
             return true;

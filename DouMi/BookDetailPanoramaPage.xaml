@@ -25,7 +25,7 @@
     <Grid x:Name="LayoutRoot">
         <controls:Panorama>
             <controls:Panorama.Title>
-                <TextBlock Text="{Binding Title}"  FontSize="150" Margin="12,40,0,0"></TextBlock>
+                <TextBlock x:Name="bookTitle" Text="" FontSize="135" Margin="12,50,0,0" Visibility="Collapsed" ></TextBlock>
             </controls:Panorama.Title>
 
 
@@ -41,7 +41,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <toolkit:PerformanceProgressBar Grid.Row="0" VerticalAlignment="Center" x:Name="basicInfoProgressBar"/>
-                    <TextBlock Grid.Row="1" x:Name="noBasicInfo" Text="无简介" Visibility="Collapsed"/>
+                    <TextBlock Grid.Row="1" x:Name="noBasicInfo"  Margin="12,0,0,0" Text="无信息" Visibility="Collapsed" Style="{StaticResource PhoneTextSubtleStyle}"/>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -54,6 +54,7 @@
 
                         <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top">
                             <TextBlock Text="{Binding BasicInfoTitle}" Visibility="{Binding Title, Converter={StaticResource basicInfoToVisibilityConverter}}" TextWrapping="Wrap" Margin="0,0,0,0" Style="{StaticResource PhoneTextNormalStyle}"/>
+                            <TextBlock Text="{Binding BasicInfoSubtitle}" Visibility="{Binding Subtitle, Converter={StaticResource basicInfoToVisibilityConverter}}" TextWrapping="Wrap" Margin="0,0,0,0" Style="{StaticResource PhoneTextNormalStyle}"/>
                             <TextBlock Text="{Binding BasicInfoAuthor}" Visibility="{Binding Author, Converter={StaticResource basicInfoToVisibilityConverter}}" TextWrapping="Wrap" Margin="0,5,0,0" Style="{StaticResource PhoneTextNormalStyle}"/>
                             <TextBlock Text="{Binding BasicInfoTranslator}" Visibility="{Binding Translator, Converter={StaticResource basicInfoToVisibilityConverter}}" TextWrapping="Wrap" Margin="0,5,0,0" Style="{StaticResource PhoneTextNormalStyle}"/>
                             <TextBlock Text="{Binding BasicInfoPublisher}" Visibility="{Binding Publisher, Converter={StaticResource basicInfoToVisibilityConverter}}" TextWrapping="Wrap" Margin="0,5,0,0" Style="{StaticResource PhoneTextNormalStyle}"/>
@@ -88,10 +89,10 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="内容简介" Margin="12,0,0,10" Visibility="{Binding Summary, Converter={StaticResource basicInfoToVisibilityConverter}}" TextWrapping="Wrap" FontSize="36" Foreground="LimeGreen"/>
+                            <TextBlock Grid.Row="0" x:Name="contentIntro" Text="内容简介" Margin="12,0,0,10" Visibility="{Binding Summary, Converter={StaticResource basicInfoToVisibilityConverter}}" TextWrapping="Wrap" FontSize="36" Foreground="LimeGreen"/>
                             <TextBlock Grid.Row="1" Text="{Binding Summary}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}"/>
                             <Rectangle Grid.Row="2" Margin="0,20,0,20"  Visibility="{Binding Summary, Converter={StaticResource basicInfoToVisibilityConverter}}" />
-                            <TextBlock Grid.Row="3" Text="作者简介" Margin="12,0,0,10" Visibility="{Binding AuthorIntro, Converter={StaticResource basicInfoToVisibilityConverter}}" TextWrapping="Wrap" FontSize="36" Foreground="LimeGreen" />
+                            <TextBlock Grid.Row="3" x:Name="authorIntro" Text="作者简介" Margin="12,0,0,10" Visibility="{Binding AuthorIntro, Converter={StaticResource basicInfoToVisibilityConverter}}" TextWrapping="Wrap" FontSize="36" Foreground="LimeGreen" />
                             <TextBlock Grid.Row="4" Text="{Binding AuthorIntro}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}"/>
                         </Grid>
                     </ScrollViewer>

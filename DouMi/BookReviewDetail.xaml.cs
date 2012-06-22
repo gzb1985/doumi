@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Windows.Navigation;
-using WikiDev.Core;
+using WebHelpers;
 using System.Text.RegularExpressions;
 using System.IO.IsolatedStorage;
 using System.IO;

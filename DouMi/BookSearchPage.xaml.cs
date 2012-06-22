@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Windows.Navigation;
-using WikiDev.Core;
+using WebHelpers;
 
 namespace DouMi
 {
@@ -45,10 +45,9 @@ namespace DouMi
 
         private void txtSearchKey_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter && txtSearchKey.Text != "")
+            if (e.Key == Key.Enter)
             {
-                this.Focus();
-                NavigationService.Navigate(new Uri("/BookSearchResultPage.xaml?key=" + txtSearchKey.Text, UriKind.Relative));
+                Search();
             }
         }
 
@@ -57,13 +56,21 @@ namespace DouMi
 
         }
 
-        private void BeginSearch_Click(object sender, EventArgs e)
+        private void Search()
         {
             if (txtSearchKey.Text != "")
             {
-                this.Focus();
-                NavigationService.Navigate(new Uri("/BookSearchResultPage.xaml?key=" + txtSearchKey.Text, UriKind.Relative));
+                if (WebHelper.Instance.InternetIsAvailableNotify())
+                {
+                    this.Focus();
+                    NavigationService.Navigate(new Uri("/BookSearchResultPage.xaml?key=" + txtSearchKey.Text, UriKind.Relative));
+                }
             }
+        }
+
+        private void BeginSearch_Click(object sender, EventArgs e)
+        {
+            Search();
         }
 
         private void BarcodeScan_Click(object sender, EventArgs e)

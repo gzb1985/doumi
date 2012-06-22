@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Windows.Navigation;
 using System.Windows.Controls.Primitives;
-using WikiDev.Core;
+using WebHelpers;
 using BookInfo;
 using System.Collections;
 
@@ -25,8 +25,9 @@ namespace DouMi
 
         private ScrollViewer sv = null;
         private bool alreadyHookedScrollEvents = false;
-        private bool isLoadingMoreData = false;
+        private bool isSearchingData = false;
         private bool needLoadingMoreData = false;
+        private bool isNoSearchResult = false;
 
         public BookSearchResultPage()
         {
@@ -48,8 +49,9 @@ namespace DouMi
             {
                 SearchKey = key;
                 string bookSearchUrl = BookUrl.Instance.ConstructBookSearchUrl(SearchKey, 1, 10);
-                SearchBook(bookSearchUrl);
-                ApplicationTitle.Text = "豆米 | 搜索\"" + key + "\"得到的...";
+                SearchMoreBook(bookSearchUrl);
+                //ApplicationTitle.Text = "豆米 @ 关键字\"" + key + "\"";
+                PageTitle.Text = "\"" + key + "\"";
             }
             base.OnNavigatedTo(e);
         }
@@ -59,7 +61,9 @@ namespace DouMi
             if (BookSearchResultListBox.SelectedIndex == -1)
                 return;
 
-            NavigationService.Navigate(new Uri("/BookDetailPanoramaPage.xaml?isbn=" + bookSearchResultViewModel.Items[BookSearchResultListBox.SelectedIndex].Isbn, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/BookDetailPanoramaPage.xaml?isbn=" + bookSearchResultViewModel.Items[BookSearchResultListBox.SelectedIndex].Isbn +
+                "&title=" + bookSearchResultViewModel.Items[BookSearchResultListBox.SelectedIndex].Title, 
+                UriKind.Relative));
             BookSearchResultListBox.SelectedIndex = -1;
         }
 
@@ -72,7 +76,16 @@ namespace DouMi
                         Dispatcher.BeginInvoke(() =>
                         {
                             performanceProgressBar.IsIndeterminate = false;
-                            bookSearchResultViewModel.LoadBookSearchResults(bookList);
+
+                            if (bookList.Count == 0)
+                            {
+                                isNoSearchResult = true;
+                                noSearchResult.Visibility = System.Windows.Visibility.Visible;
+                            }
+                            else
+                            {
+                                bookSearchResultViewModel.LoadBookSearchResults(bookList);
+                            }
                         });
                     },
                     () =>
@@ -80,8 +93,6 @@ namespace DouMi
                         Dispatcher.BeginInvoke(() =>
                         {
                             performanceProgressBar.IsIndeterminate = false;
-                            if (NavigationService.CanGoBack)
-                                NavigationService.GoBack();
                         });
                     },
                     (percentage) =>
@@ -92,24 +103,37 @@ namespace DouMi
 
         private void SearchMoreBook(string url)
         {
+            isSearchingData = true;
             performanceProgressBar.IsIndeterminate = true;
+
             WebHelper.Instance.SearchBook(url,
                     (bookList) =>
                     {
                         Dispatcher.BeginInvoke(() =>
                         {
+                            if (bookList.Count == 0)
+                            {
+                                isNoSearchResult = true;
+                                if (bookSearchResultViewModel.IsItemsEmpty())
+                                {
+                                    noSearchResult.Visibility = System.Windows.Visibility.Visible;
+                                }
+                            }
+                            else
+                            {
+                                bookSearchResultViewModel.AppendBookSearchResults(bookList);
+                            }
                             performanceProgressBar.IsIndeterminate = false;
-                            bookSearchResultViewModel.AppendBookSearchResults(bookList);
-                            isLoadingMoreData = false;
                         });
+                        isSearchingData = false;
                     },
                     () =>
                     {
                         Dispatcher.BeginInvoke(() =>
                         {
                             performanceProgressBar.IsIndeterminate = false;
-                            isLoadingMoreData = false;
                         });
+                        isSearchingData = false;
                     },
                     (percentage) =>
                     {
@@ -141,19 +165,23 @@ namespace DouMi
             }
         }
 
+        private bool NeedSearchMore()
+        {
+            return needLoadingMoreData && !isSearchingData && !isNoSearchResult;
+        }
+
         private void LB_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
-            if (needLoadingMoreData)
+            if (NeedSearchMore())
             {
                 needLoadingMoreData = false;
-                Dispatcher.BeginInvoke(() =>
-                {
-                    isLoadingMoreData = true;
+                //Dispatcher.BeginInvoke(() =>
+                //{
                     int start = bookSearchResultViewModel.Items.Count + 1;
                     int results = 10;
                     string bookSearchUrl = BookUrl.Instance.ConstructBookSearchUrl(SearchKey, start, results);
                     SearchMoreBook(bookSearchUrl);
-                });
+                //});
             }
         }
 
@@ -200,10 +228,7 @@ namespace DouMi
         {
             if (e.NewState.Name == "CompressionBottom")
             {
-                if (!isLoadingMoreData)
-                {
-                    needLoadingMoreData = true;
-                }
+                needLoadingMoreData = true;
             }
             if (e.NewState.Name == "NoVerticalCompression" || e.NewState.Name == "CompressionTop")
             {

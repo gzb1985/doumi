@@ -25,26 +25,28 @@
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,10">
             <TextBlock x:Name="ApplicationTitle" Text="豆米" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="书籍" Margin="9,-7,0,0" FontSize="70"/>
+            <TextBlock x:Name="PageTitle" Text="" TextWrapping="Wrap" Margin="9,-7,0,0" FontSize="40"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <toolkit:PerformanceProgressBar VerticalAlignment="Center" x:Name="performanceProgressBar"/>
-            <ListBox x:Name="BookSearchResultListBox" Grid.Row="1" Margin="0,0,0,0" ItemsSource="{Binding Items}" SelectionChanged="BookSearchResultListBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <toolkit:PerformanceProgressBar Grid.Row="0" VerticalAlignment="Center" x:Name="performanceProgressBar"/>
+            <TextBlock Grid.Row="1" x:Name="noSearchResult" Margin="12,0,0,0" Text="找不到该书" Visibility="Collapsed" Style="{StaticResource PhoneTextSubtleStyle}" />
+            <ListBox x:Name="BookSearchResultListBox" Grid.Row="2" Margin="0,8,0,0" ItemsSource="{Binding Items}" SelectionChanged="BookSearchResultListBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                            <StackPanel Height="120" Width="90" Margin="0,0,0,2">
-                                <Image Source="{Binding CoverUrl}" Height="95" Width="70" Stretch="None"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <StackPanel Height="120" Width="90" Margin="0,0,0,0">
+                                <Image Source="{Binding CoverUrl}" Margin="0,0,0,0" Height="95" Width="70" Stretch="None"/>
                             </StackPanel>
-                            <StackPanel Width="350" Margin="0,0,0,2">
+                            <StackPanel Width="350" Orientation="Vertical" Margin="0,0,0,0">
                                 <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextNormalStyle}" Foreground="LimeGreen" />
-                                <TextBlock Text="{Binding Info}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                <TextBlock Text="{Binding Info}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>

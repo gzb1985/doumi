@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DouMi", "DouMi\DouMi.csproj", "{3AF54EBB-CD2C-45CC-A393-D8FE5D99371D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHelper", "WebHelper\WebHelper.csproj", "{FB620061-2B0B-4C69-888E-E8428C58CCB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebHelpers", "WebHelper\WebHelpers.csproj", "{FB620061-2B0B-4C69-888E-E8428C58CCB7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookInfo", "BookInfo\BookInfo.csproj", "{2153CA60-DBBE-4132-99B7-28BA6209C50D}"
 EndProject
