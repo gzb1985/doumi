@@ -52,6 +52,12 @@
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.WindowsPhone">
+      <HintPath>References\RestSharp.WindowsPhone.dll</HintPath>
+    </Reference>
     <Reference Include="Silverlight_ZXing_Core">
       <HintPath>References\Silverlight_ZXing_Core.dll</HintPath>
     </Reference>
@@ -73,6 +79,9 @@
       <DependentUpon>BarCode.xaml</DependentUpon>
     </Compile>
     <Compile Include="BarcodeScan\PhotoCameraLuminanceSource.cs" />
+    <Compile Include="BookCollectionPivotPage.xaml.cs">
+      <DependentUpon>BookCollectionPivotPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BookDetailPanoramaPage.xaml.cs">
       <DependentUpon>BookDetailPanoramaPage.xaml</DependentUpon>
     </Compile>
@@ -86,9 +95,15 @@
       <DependentUpon>BookSearchResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BasicInfoToVisibilityConverter.cs" />
+    <Compile Include="DoubanOAuthPage.xaml.cs">
+      <DependentUpon>DoubanOAuthPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OAuth\DoubanOAuth.cs" />
+    <Compile Include="OAuth\OAuthBase.cs" />
+    <Compile Include="OAuth\OAuthHeader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BookDetailViewModel.cs" />
     <Compile Include="ViewModels\BookSearchResultViewModel.cs" />
@@ -111,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BookCollectionPivotPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BookDetailPanoramaPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DoubanOAuthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -148,6 +171,9 @@
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="PanoramaBackground.jpg" />
+    <Content Include="Images\appbar.check.png" />
+    <Content Include="Images\appbar_review.png" />
     <Content Include="Images\appbar_search.png" />
     <Content Include="Images\appbar_camera.png" />
     <Resource Include="Images\Info.png" />

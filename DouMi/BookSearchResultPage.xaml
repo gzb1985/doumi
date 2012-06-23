@@ -40,15 +40,26 @@
             <ListBox x:Name="BookSearchResultListBox" Grid.Row="2" Margin="0,8,0,0" ItemsSource="{Binding Items}" SelectionChanged="BookSearchResultListBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <StackPanel Height="120" Width="90" Margin="0,0,0,0">
-                                <Image Source="{Binding CoverUrl}" Margin="0,0,0,0" Height="95" Width="70" Stretch="None"/>
-                            </StackPanel>
-                            <StackPanel Width="350" Orientation="Vertical" Margin="0,0,0,0">
-                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextNormalStyle}" Foreground="LimeGreen" />
-                                <TextBlock Text="{Binding Info}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" />
-                            </StackPanel>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Width="90" Margin="0,0,0,0" VerticalAlignment="Top">
+                                    <Image Source="{Binding CoverUrl}" Margin="0,0,0,0" Height="95" Width="70" Stretch="None" VerticalAlignment="Top" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,-7,0,0" VerticalAlignment="Top">
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextNormalStyle}" Foreground="LimeGreen" VerticalAlignment="Top" />
+                                    <TextBlock Text="{Binding Info}" TextWrapping="Wrap" Margin="12,0,12,0" Style="{StaticResource PhoneTextSubtleStyle}" VerticalAlignment="Top" />
+                                </StackPanel>
+                            </Grid>
+                            <Rectangle Grid.Row="1" Height="30" Opacity="0" />
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

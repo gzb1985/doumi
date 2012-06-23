@@ -35,5 +35,11 @@ namespace DouMi
             web.Uri = new Uri("http://www.cnblogs.com/gzb1985/", UriKind.Absolute);
             web.Show();
         }
+
+        private void Review_Click(object sender, EventArgs e)
+        {
+            MarketplaceReviewTask marketplaceReviewTask = new MarketplaceReviewTask();
+            marketplaceReviewTask.Show();
+        }
     }
 }

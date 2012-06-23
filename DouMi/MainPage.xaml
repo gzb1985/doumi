@@ -49,6 +49,27 @@
                 </Grid>
             </ListBoxItem>
 
+
+            <ListBoxItem>
+                <Grid Height="173" Width="480">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Width="200" VerticalAlignment="Center">
+                        <Image x:Name="UserIcon" Height="140" Width="140" Stretch="Fill" />
+                    </StackPanel>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="UserName" Text="账户" Grid.Row="0" Style="{StaticResource PhoneTextLargeStyle}" Margin="12,15,12,0" Foreground="LimeGreen" />
+                        <TextBlock Text="绑定你的豆瓣账户..." TextWrapping="Wrap" Grid.Row="1" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Center" Margin="12,0,12,0" />
+                    </Grid>
+                </Grid>
+            </ListBoxItem>
+
             <ListBoxItem>
                 <Grid Height="173" Width="480">
                     <Grid.ColumnDefinitions>

@@ -10,7 +10,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
@@ -56,15 +56,10 @@
     </Grid>
  
     <!--演示 ApplicationBar 用法的示例代码-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="按钮 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="按钮 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="菜单项 1"/>
-                <shell:ApplicationBarMenuItem Text="菜单项 2"/>
-            </shell:ApplicationBar.MenuItems>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
+            <shell:ApplicationBarIconButton Click="Review_Click" IconUri="/Images/appbar_review.png" Text="给豆米打分"/>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
