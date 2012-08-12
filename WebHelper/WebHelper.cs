@@ -342,7 +342,7 @@ namespace WebHelpers
         private List<string> GetProviders(String content)
         {
             string dummy1 = "(;\">)";	// content header
-            string bs = "([\u4e00-\u9fa5 | \\d*]*)";
+            string bs = "([\\w*|\\d*|-]*)";
             string dummy2 = "(</a>)";	// tail
 
             Regex rs = new Regex(dummy1 + bs + dummy2, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Multiline);
