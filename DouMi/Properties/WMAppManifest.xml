@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{ad253459-901c-475d-804c-30bc2ce48395}" Title="豆米" RuntimeType="Silverlight" Version="1.1.0.0" Genre="apps.normal"  Author="风中散发" Description="Sample description" Publisher="风中散发">
+  <App xmlns="" ProductID="{ad253459-901c-475d-804c-30bc2ce48395}" Title="豆米" RuntimeType="Silverlight" Version="1.2.0.0" Genre="apps.normal"  Author="风中散发" Description="Sample description" Publisher="风中散发">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES"/>

@@ -148,6 +148,7 @@
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\appbar_review.png" />
     <Content Include="Images\appbar_search.png" />
     <Content Include="Images\appbar_camera.png" />
     <Resource Include="Images\Info.png" />

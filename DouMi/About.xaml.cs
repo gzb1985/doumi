@@ -24,7 +24,7 @@ namespace DouMi
         private void Email_Click(object sender, EventArgs e)
         {
             EmailComposeTask email = new EmailComposeTask();
-            email.Subject = "豆米 v1.1.0.0 Feedback";
+            email.Subject = "豆米 v1.2.0.0 Feedback";
             email.To = "gzb1985@gmail.com";
             email.Show();
         }
@@ -34,6 +34,12 @@ namespace DouMi
             WebBrowserTask web = new WebBrowserTask();
             web.Uri = new Uri("http://www.cnblogs.com/gzb1985/", UriKind.Absolute);
             web.Show();
+        }
+
+        private void Review_Click(object sender, EventArgs e)
+        {
+            MarketplaceReviewTask marketplaceReviewTask = new MarketplaceReviewTask();
+            marketplaceReviewTask.Show();
         }
     }
 }

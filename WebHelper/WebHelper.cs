@@ -431,13 +431,13 @@ namespace WebHelpers
                 string html = "";
                 if (IsThemeDark())
                 {
-                    html += "<html lang='zh-CN'><body bgcolor=\"#000000\">";
-                    html += "<p><font color=\"#FFFFFF\">";
+                    html += "<html lang='zh-CN'><head><meta content=\"initial-scale=1.0, user-scalable=no;\" /></head><body bgcolor=\"#000000\">";
+                    html += "<p><font color=\"#FFFFFF\" size=\"3\">";
                 }
                 else
                 {
-                    html += "<html lang='zh-CN'><body bgcolor=\"#FFFFFF\">";
-                    html += "<p><font color=\"#000000\">";
+                    html += "<html lang='zh-CN'><head><meta content=\"initial-scale=1.0, user-scalable=no;\" /></head><body bgcolor=\"#FFFFFF\">";
+                    html += "<p><font color=\"#000000\" size=\"3\">";
                 }
                 
                 html += rd;
