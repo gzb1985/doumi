@@ -14,6 +14,7 @@ using System.Windows;
 using System.Net.NetworkInformation;
 using BookInfo;
 using System.Windows.Resources;
+using HtmlAgilityPack;
 
 namespace WebHelpers
 {
@@ -296,7 +297,7 @@ namespace WebHelpers
             DownloadString(url,
                 (content) =>
                 {
-                    List<BuyLink> buylinks = ParseBuylinks(content);
+                    List<BuyLink> buylinks = ParseBuyLinks(content);
                     if (buylinks != null)
                         onContentReady(buylinks);
                     else
@@ -312,69 +313,24 @@ namespace WebHelpers
                 });
         }
 
-
-        private List<BuyLink> ParseBuylinks(string buylink)
+        private List<BuyLink> ParseBuyLinks(string rawHtmlInfo)
         {
-            string re1 = "(<table class=)";	// content header
-            string re2 = "(.*?)";	// Non-greedy match on filler
-            string re3 = "(</table>)";	// tail
-            List<BuyLink> buylinks = null;
-
-            Regex r = new Regex(re1 + re2 + re3, RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            Match m = r.Match(buylink);
-            if (m.Success)
+            List<BuyLink> buylinks = new List<BuyLink>();
+            HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
+            document.LoadHtml(rawHtmlInfo);
+            var buylink_table = document.DocumentNode.SelectSingleNode("//*[@id='buylink-table']");
+            var trs = buylink_table.SelectNodes(".//tr");
+            foreach (var tr in trs)
             {
-                String content = m.Groups[2].ToString();
-                List<string> providers = GetProviders(content);
-                List<string> prices = GetPrices(content);
-                if (providers.Count == prices.Count)
-                {
-                    buylinks = new List<BuyLink>();
-                    for (int i = 0; i < providers.Count; i++)
-                    {
-                        buylinks.Add(new BuyLink { Provider = providers[i], Price = prices[i] });
-                    }
-                }
+                var tds = tr.SelectNodes(".//td");
+                if (tds == null) continue;
+                string provider = tds[1].SelectSingleNode(".//a[@href]").InnerText;
+                string price = tds[2].SelectSingleNode(".//a[@href]").InnerText;
+                buylinks.Add(new BuyLink { Provider = provider, Price = price });
             }
+
             return buylinks;
         }
-
-        private List<string> GetProviders(String content)
-        {
-            string dummy1 = "(;\">)";	// content header
-            string bs = "([\\w*|\\d*|-]*)";
-            string dummy2 = "(</a>)";	// tail
-
-            Regex rs = new Regex(dummy1 + bs + dummy2, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Multiline);
-            Match ms = rs.Match(content);
-            List<string> providers = new List<string>();
-            while (ms.Success)
-            {
-                string provider = ms.Groups[2].ToString();
-                providers.Add(provider);
-                ms = ms.NextMatch();
-            }
-            return providers;
-        }
-
-        private List<string> GetPrices(String content)
-        {
-            string dummy1 = "(href=\"[a-zA-z]+://[^\\s]*\">)";	// content header
-            string bs = "(\\d*\\.\\d*)";
-            string dummy2 = "(</a>)";	// tail
-
-            Regex rs = new Regex(dummy1 + bs + dummy2, RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            Match ms = rs.Match(content);
-            List<string> prices = new List<string>();
-            while (ms.Success)
-            {
-                string price = ms.Groups[2].ToString();
-                prices.Add(price);
-                ms = ms.NextMatch();
-            }
-            return prices;
-        }
-
 
         public void DownloadBookReviewDetail(string url, Action<string> onContentReady, Action onConnectionFailed, Action<int> onProgressChanged)
         {
