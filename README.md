@@ -13,4 +13,4 @@ License: MIT (see LICENSE)
 4，查阅书籍评论
 5，查看书籍比价
 
-Windows Marketplace链接: http://www.windowsphone.com/en-US/apps/aa608efc-2368-446d-8aa9-3924ea0a64f3
+Windows Marketplace链接: [豆米](http://www.windowsphone.com/zh-cn/store/app/%E8%B1%86%E7%B1%B3/aa608efc-2368-446d-8aa9-3924ea0a64f3)
